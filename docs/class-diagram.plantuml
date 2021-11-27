@@ -1,0 +1,69 @@
+@startuml class-diagram
+package net.exercise.web {
+    class App {
+        {static} NanoHttpd nanoHttpd
+        {static} NanoHttpdAdapter nanoHttpdAdapter
+        {static} Main()
+    }
+
+    class NanoHttpdAdapter {
+        PersonService personService
+        NanoHttpdAdapter(PersonService personService)
+    }
+
+}
+
+package net.exercise.store {
+    class SqlLitePersonStore {
+        #Person Get(String id)
+        #Person[] Search(String str)
+    }
+    interface PersonStore {
+        Person Get(String id)
+        Person[] Search(String str)
+    }
+    PersonStore <|-- SqlLitePersonStore
+}
+
+package net.exercise.service {
+    class PersonService {
+        personStore PersonStore
+        PersonService(PersonStore personStore)
+        Person Get(String id)
+        Person[] Search(String str)
+    }
+}
+
+App o-up- NanoHttpdAdapter
+NanoHttpdAdapter o-right-  PersonService
+PersonService o-down- PersonStore
+
+package net.exercise.model {
+    class Person {
+        String id
+        String name
+        WorkedOn[] WorkedOn
+    }
+
+    class WorkedOn {
+        String id
+        Role role
+        Movie movie
+    }
+
+    Person o-- WorkedOn
+
+    WorkedOn o-- Movie 
+    WorkedOn o-- Role
+
+    class Movie {
+        String id
+        String name
+    }
+
+    class Role {
+        String id
+        String name
+    }
+}
+@enduml
