@@ -49,17 +49,17 @@ public class StoreTest {
         // Spot check person 2 movies
         //
         Assert.assertEquals(5, p2.getWorkedOn().size());
-        WorkedOn mr = p2.getWorkedOn().stream().filter(new Predicate<WorkedOn>() {
+        WorkedOn wo = p2.getWorkedOn().stream().filter(new Predicate<WorkedOn>() {
             @Override
             public boolean test(WorkedOn t) {
                 return t.getMovie().getId().equals("5");
             }
         }).findAny().orElse(null);
 
-        Assert.assertNotNull(mr);
-        Assert.assertEquals("McBain II", mr.getMovie().getName());
-        Assert.assertEquals("1", mr.getRole().getId());
-        Assert.assertEquals("starred", mr.getRole().getName());
+        Assert.assertNotNull(wo);
+        Assert.assertEquals("McBain II", wo.getMovie().getName());
+        Assert.assertEquals("1", wo.getRole().getId());
+        Assert.assertEquals("starred", wo.getRole().getName());
 
         // Find person with id 4 in the results to verify
         // field values
@@ -77,12 +77,12 @@ public class StoreTest {
         // Spot check person 4 movies
         //
         Assert.assertEquals(1, p4.getWorkedOn().size());
-        mr = p4.getWorkedOn().iterator().next();
+        wo = p4.getWorkedOn().iterator().next();
 
-        Assert.assertNotNull(mr);
-        Assert.assertEquals("All My Circuits", mr.getMovie().getName());
-        Assert.assertEquals("3", mr.getRole().getId());
-        Assert.assertEquals("stars", mr.getRole().getName());
+        Assert.assertNotNull(wo);
+        Assert.assertEquals("All My Circuits", wo.getMovie().getName());
+        Assert.assertEquals("3", wo.getRole().getId());
+        Assert.assertEquals("stars", wo.getRole().getName());
     }
 
     @Test
